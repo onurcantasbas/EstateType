@@ -1,8 +1,5 @@
 package com.onurcantasbas.estatetype;
 
-
-import com.onurcantasbas.estatetype.core.Estate;
-import com.onurcantasbas.estatetype.core.Villa;
 import com.onurcantasbas.estatetype.repository.EstateRepository;
 import com.onurcantasbas.estatetype.service.EstateService;
 import com.onurcantasbas.estatetype.service.dto.EstateDto;

@@ -1,11 +1,6 @@
 package com.onurcantasbas.estatetype.core;
 
-
 import lombok.*;
-import org.hibernate.annotations.DiscriminatorFormula;
-import org.hibernate.annotations.DiscriminatorOptions;
-import org.hibernate.annotations.Target;
-
 import javax.persistence.*;
 @ToString
 @AllArgsConstructor

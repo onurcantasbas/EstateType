@@ -1,7 +1,6 @@
 package com.onurcantasbas.estatetype.core;
 
 import lombok.Builder;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

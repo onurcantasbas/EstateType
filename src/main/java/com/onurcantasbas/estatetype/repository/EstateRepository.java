@@ -5,14 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
+
 
 @Repository
 public interface EstateRepository extends JpaRepository<Estate,Long> {
 // , JpaSpecificationExecutor
-
 //    List<Estate> findAllByType(String type);
 //    List<Estate> findAllBySquareMetersBetween(int first,int second);
 
@@ -30,7 +28,5 @@ public interface EstateRepository extends JpaRepository<Estate,Long> {
 
     List<Estate> findAllByNumberOfRoomsBetweenAndNumberOfHallsBetween(int minRooms,int maxRooms,int minHalls,int maxHalls);
     List<Estate> findAllByNumberOfRoomsAndNumberOfHalls(int numnerOfRoom, int numberOfHall);
-
-
 
 }

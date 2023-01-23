@@ -1,19 +1,8 @@
 package com.onurcantasbas.estatetype.core;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.objenesis.instantiator.annotations.Instantiator;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import java.lang.annotation.Inherited;
-
-
-
 
 @Entity
 @DiscriminatorValue("Villa")
