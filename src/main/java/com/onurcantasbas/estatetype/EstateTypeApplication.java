@@ -44,7 +44,7 @@ public class EstateTypeApplication implements CommandLineRunner {
             }else {
                 type = "House";
             }
-            EstateDto villa = EstateDto.builder()
+            EstateDto estateDto = EstateDto.builder()
                     .price((int) (Math.random() * 100000) + 10000)
                     .numberOfHalls((int) (Math.random() * 5) + 1)
                     .squareMeters((int) (Math.random() * 1000) + 100)
