@@ -51,7 +51,7 @@ public class EstateTypeApplication implements CommandLineRunner {
                     .numberOfRooms((int) (Math.random() * 20) + 1)
                     .type(type)
                     .build();
-                estateService.saveEstate(villa);
+                estateService.saveEstate(estateDto);
         }
         //Generate And Save Entity Manual
         EstateDto c = EstateDto.builder()
