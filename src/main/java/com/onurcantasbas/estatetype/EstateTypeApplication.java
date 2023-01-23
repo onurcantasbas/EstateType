@@ -1,5 +1,8 @@
 package com.onurcantasbas.estatetype;
 
+import com.onurcantasbas.estatetype.core.Estate;
+import com.onurcantasbas.estatetype.core.House;
+import com.onurcantasbas.estatetype.core.Villa;
 import com.onurcantasbas.estatetype.repository.EstateRepository;
 import com.onurcantasbas.estatetype.service.EstateService;
 import com.onurcantasbas.estatetype.service.dto.EstateDto;
@@ -29,34 +32,26 @@ public class EstateTypeApplication implements CommandLineRunner {
     DtoMapping dtoMapping;
     @Override
     public void run(String... args) throws Exception {
+
         /*
-    Generate And Save Entity With random values
+        // Generate And Save Entity by Random Values
+        String type;
           for(int i=0;i<50;i++){
-            if(i%3==0){
-                Estate villa = Villa.builder()
-                        .price((int)(Math.random()*100000)+10000)
-                        .numberOfHalls((int)(Math.random()*5)+1)
-                        .squareMeters((int)(Math.random()*1000)+100)
-                        .numberOfRooms((int)(Math.random()*20)+1)
-                .build();
-                estateService.saveEstate(villa);
-             }else if (i%3==1) {
-                Estate house = House.builder()
-                        .price((int)(Math.random()*100000)+10000)
-                        .numberOfHalls((int)(Math.random()*5)+1)
-                       .squareMeters((int)(Math.random()*1000)+100)
-                        .numberOfRooms((int)(Math.random()*20)+1)
-                        .build();
-                estateService.saveEstate(house);
-             }else {
-                Estate summerHouse = SummerHouse.builder()
-                        .price((int)(Math.random()*100000)+10000)
-                        .numberOfHalls((int)(Math.random()*5)+1)
-                        .squareMeters((int)(Math.random()*1000)+100)
-                        .numberOfRooms((int)(Math.random()*20)+1)
-                        .build();
-                estateService.saveEstate(summerHouse);
+            if(i%3==0) {
+                type = "Villa";
+            } else if (i%3==1) {
+                type = "SummerHouse";
+            }else {
+                type = "House";
             }
+            EstateDto villa = EstateDto.builder()
+                    .price((int) (Math.random() * 100000) + 10000)
+                    .numberOfHalls((int) (Math.random() * 5) + 1)
+                    .squareMeters((int) (Math.random() * 1000) + 100)
+                    .numberOfRooms((int) (Math.random() * 20) + 1)
+                    .type(type)
+                    .build();
+                estateService.saveEstate(villa);
         }
         //Generate And Save Entity Manual
         EstateDto c = EstateDto.builder()
@@ -67,8 +62,8 @@ public class EstateTypeApplication implements CommandLineRunner {
                 .type("Villa")
                 .build();
         estateRepository.save(dtoMapping.estateDtoToEstate(c));
+        */
 
-*/
         double avgAll = estateService.getSquareMetersAverageAll();
         System.out.println("Square Meters Average of All = "+ avgAll);
 
@@ -105,7 +100,7 @@ public class EstateTypeApplication implements CommandLineRunner {
         }
 
         System.out.println("-----------------------Room And Hall Filter----------------------------");
-        List<EstateDto> estatesFiltered = estateService.filterAllByHallAndRoom(10,5);
+        List<EstateDto> estatesFiltered = estateService.filterAllByHallAndRoom(7,5);
         if(estatesFiltered.size()!=0){
         for (EstateDto estateDto:estatesFiltered
              ) {
