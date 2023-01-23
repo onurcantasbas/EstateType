@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Entity(name = "estates")
 @DiscriminatorColumn(name = "type",discriminatorType = DiscriminatorType.STRING)
-public class Estate {
+public abstract class Estate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
