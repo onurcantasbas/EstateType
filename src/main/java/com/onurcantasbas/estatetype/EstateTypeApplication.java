@@ -2,12 +2,11 @@ package com.onurcantasbas.estatetype;
 
 
 import com.onurcantasbas.estatetype.core.Estate;
-import com.onurcantasbas.estatetype.core.House;
-import com.onurcantasbas.estatetype.core.SummerHouse;
 import com.onurcantasbas.estatetype.core.Villa;
 import com.onurcantasbas.estatetype.repository.EstateRepository;
-import com.onurcantasbas.estatetype.repository.dto.EstateDto;
 import com.onurcantasbas.estatetype.service.EstateService;
+import com.onurcantasbas.estatetype.service.dto.EstateDto;
+import com.onurcantasbas.estatetype.service.dto.mapping.DtoMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,11 +28,12 @@ public class EstateTypeApplication implements CommandLineRunner {
     EstateService estateService;
     @Autowired
     EstateRepository estateRepository;
-
+    @Autowired
+    DtoMapping dtoMapping;
     @Override
     public void run(String... args) throws Exception {
-
-/*
+        /*
+    Generate And Save Entity With random values
           for(int i=0;i<50;i++){
             if(i%3==0){
                 Estate villa = Villa.builder()
@@ -61,55 +61,61 @@ public class EstateTypeApplication implements CommandLineRunner {
                 estateService.saveEstate(summerHouse);
             }
         }
+        //Generate And Save Entity Manual
+        EstateDto c = EstateDto.builder()
+                .numberOfRooms(30)
+                .squareMeters(30)
+                .numberOfHalls(30)
+                .price(30)
+                .type("Villa")
+                .build();
+        estateRepository.save(dtoMapping.estateDtoToEstate(c));
+
 */
+        double avgAll = estateService.getSquareMetersAverageAll();
+        System.out.println("Square Meters Average of All = "+ avgAll);
 
-//        double avgAll = estateService.getSquareMetersAverageAll();
-//        double avgSqrtSummerHouse = estateService.getSquareMetersAverageByType("SummerHouse");
-//        double avgSqrtHouse = estateService.getSquareMetersAverageByType("House");
-//        double avgSqrtVilla = estateService.getSquareMetersAverageByType("Villa");
-//
-//        double sumAll = estateService.getPriceSumAll();
-//        double sumSummerHouse = estateService.getPriceSumByType("SummerHouse");
-//        double sumHouse = estateService.getPriceSumByType("House");
-//        double sumVilla = estateService.getPriceSumByType("Villa");
-//
-//        List<Estate> estatesFiltered = estateService.filterAllByHallAndRoom(2,5,4,8);
-//
-//        System.out.println("average All = "+ avgAll);
-//        System.out.println("average SummerHouse = "+ avgSqrtSummerHouse);
-//        System.out.println("average House = "+ avgSqrtHouse);
-//        System.out.println("average Villa = "+ avgSqrtVilla);
-//
-//        System.out.println("sum All = "+ sumAll);
-//        System.out.println("sum SummerHouse = "+ sumSummerHouse);
-//        System.out.println("sum House = "+ sumHouse);
-//        System.out.println("sum Villa = "+ sumVilla);
-//
-//        Estate c = Villa.builder()
-//                .numberOfRooms(30)
-//                .squareMeters(30)
-//                .numberOfHalls(30)
-//                .price(30)
-//                .build();
-//        estateRepository.save(c);
-//
-//        System.out.println("ilk Hali :"+c.getClass().getSimpleName());
-//
-//        Estate last = estateRepository.findById(52L).orElseThrow(null);
-//        System.out.println("Geri dönüşü :"+last.getClass().getSimpleName());
+        double avgSqrtSummerHouse = estateService.getSquareMetersAverageByType("SummerHouse");
+        System.out.println("Square Meters Average of SummerHouse = "+ avgSqrtSummerHouse);
 
+        double avgSqrtHouse = estateService.getSquareMetersAverageByType("House");
+        System.out.println("Square Meters Average of House = "+ avgSqrtHouse);
 
+        double avgSqrtVilla = estateService.getSquareMetersAverageByType("Villa");
+        System.out.println("Square Meters Average of Villa = "+ avgSqrtVilla);
 
+        double sumAll = estateService.getPriceSumAll();
+        System.out.println("Price Sum of All = "+ sumAll);
 
+        double sumSummerHouse = estateService.getPriceSumByType("SummerHouse");
+        System.out.println("Price Sum of SummerHouse = "+ sumSummerHouse);
 
+        double sumHouse = estateService.getPriceSumByType("House");
+        System.out.println("Price Sum of House = "+ sumHouse);
 
-//        for (Estate estate:estatesFiltered
-//             ) {
-//            System.out.println("EntityId:" +estate.getId()+ " numberOfHall = "+estate.getNumberOfHalls());
-//            System.out.println("EntityId:" +estate.getId()+ " numberOfRoom = "+estate.getNumberOfRooms());
-//            System.out.println(estate.getClass().getSimpleName());
-//           }
+        double sumVilla = estateService.getPriceSumByType("Villa");
+        System.out.println("Price Sum of Villa = "+ sumVilla);
 
+        System.out.println("--------------------Room And Hall Filter By Range-----------------------");
+        List<EstateDto> estatesFilteredByRange = estateService.filterAllByHallAndRoom(2,5,4,8);
+        if(estatesFilteredByRange.size()!=0){
+            for (EstateDto estateDto:estatesFilteredByRange
+            ) {
+                System.out.println("EntityId:" +estateDto.getId()+ " numberOfHall = "+estateDto.getNumberOfHalls()+ " numberOfRoom = "+estateDto.getNumberOfRooms());
+            }
+        }else{
+            System.out.println("Aradığınız oda ve salon aralığında emlak bulunamadı.");
+        }
 
+        System.out.println("-----------------------Room And Hall Filter----------------------------");
+        List<EstateDto> estatesFiltered = estateService.filterAllByHallAndRoom(10,5);
+        if(estatesFiltered.size()!=0){
+        for (EstateDto estateDto:estatesFiltered
+             ) {
+            System.out.println("EntityId:" +estateDto.getId()+ " numberOfHall = "+estateDto.getNumberOfHalls()+ " numberOfRoom = "+estateDto.getNumberOfRooms());
+        }
+        }else{
+            System.out.println("Aradığınız oda ve salon sayısına sahip emlak bulunamadı.");
+        }
     }
 }

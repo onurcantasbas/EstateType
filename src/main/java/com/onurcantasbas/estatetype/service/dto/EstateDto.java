@@ -1,14 +1,13 @@
-package com.onurcantasbas.estatetype.repository.dto;
+package com.onurcantasbas.estatetype.service.dto;
 
 
 import lombok.*;
 
 import javax.persistence.Column;
-
+@ToString
 @Builder
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 public class EstateDto {
     private Long id;

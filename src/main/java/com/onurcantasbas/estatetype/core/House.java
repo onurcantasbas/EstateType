@@ -16,7 +16,6 @@ public class House extends Estate {
 
 
     }
-
     public House() {
     }
 }

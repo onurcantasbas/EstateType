@@ -2,14 +2,13 @@ package com.onurcantasbas.estatetype.service;
 
 
 import com.onurcantasbas.estatetype.core.Estate;
-import com.onurcantasbas.estatetype.core.House;
-import com.onurcantasbas.estatetype.core.Villa;
 import com.onurcantasbas.estatetype.repository.EstateRepository;
-import com.onurcantasbas.estatetype.repository.dto.EstateDto;
-import com.onurcantasbas.estatetype.repository.dto.mapping.DtoMapping;
+import com.onurcantasbas.estatetype.service.dto.EstateDto;
+import com.onurcantasbas.estatetype.service.dto.mapping.DtoMapping;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 public class EstateService {
@@ -24,7 +23,7 @@ public class EstateService {
     }
 
     public void saveEstate(EstateDto estateDto){
-        Estate estate = dtoMapping.EstateDtoToEstate(estateDto);
+        Estate estate = dtoMapping.estateDtoToEstate(estateDto);
         estateRepository.save(estate);
     }
     public void deleteEstate(Estate estate){
@@ -37,11 +36,11 @@ public class EstateService {
 //    }
 
     // Belirtilen tipteki evlerin fiyat toplamını döndürür.
-    public Double getPriceSumByType(String type){
+    public int getPriceSumByType(String type){
         return estateRepository.getPriceSumByType(type);
     }
     // Tüm tipteki evlerin fiyat toplamını döndürür.
-    public Double getPriceSumAll(){
+    public int getPriceSumAll(){
         return estateRepository.getPriceSumOfAll();
     }
 
@@ -55,16 +54,13 @@ public class EstateService {
         return estateRepository.getSqueraMetersAverageOfAll();
     }
 
-
     // Tüm tipteki evleri salon ve oda sayısı aralığına göre filtreler 4 parametre gerekli
-    public List<Estate> filterAllByHallAndRoom(int mimRooms,int maxRooms,int minHalls,int maxHalls ){
-        return estateRepository.findAllByNumberOfRoomsBetweenAndNumberOfHallsBetween(mimRooms,maxRooms,minHalls,maxHalls);
+    // oda aralığı int mimRooms,int maxRooms ve salon aralığı int minHalls,int maxHalls
+    public List<EstateDto> filterAllByHallAndRoom(int mimRooms,int maxRooms,int minHalls,int maxHalls ){
+        return dtoMapping.estateListToEstateDtoList(estateRepository.findAllByNumberOfRoomsBetweenAndNumberOfHallsBetween(mimRooms,maxRooms,minHalls,maxHalls));
     }
-
-
-
-
-
-
-
+    // Tüm tipteki evleri salon ve oda sayısına göre filtreler
+    public List<EstateDto> filterAllByHallAndRoom(int numberOfRooms, int numberOfHalls){
+        return dtoMapping.estateListToEstateDtoList(estateRepository.findAllByNumberOfRoomsAndNumberOfHalls(numberOfRooms,numberOfHalls));
+    }
 }
