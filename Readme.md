@@ -16,5 +16,6 @@ Aynı şekilde programı çalıştırmak istediğinizde önce diğer tüm konsol
 > **::UYARI::**
 ---
 
+Şema:
 
-
+![scheme](https://user-images.githubusercontent.com/65484711/213964055-8647556e-93bb-4272-92b3-b3ee5820a591.png)
